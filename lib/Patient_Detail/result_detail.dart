@@ -181,7 +181,25 @@ class _ResultDetailState extends State<ResultDetail> {
 น้ำหนัก: ${_patient?.weightController.isNotEmpty == true ? _patient!.weightController : 'ไม่ได้ระบุ'}' กิโลกรัม
 ความดันโลหิต: ${_patient?.systolicBloodPressureController ?? 'ไม่ระบุ'}/${_patient?.diastolicBloodPressureController ?? 'ไม่ระบุ'} (mg/dl)
 ระดับน้ำตาลในเลือด: ${_patient?.sugarController.isNotEmpty == true ? _patient!.sugarController : 'ไม่ได้ระบุ'} (mg/dl)
-โรคประจำตัว: ${_patient?.selectedDiseases.isNotEmpty == true ? _patient!.selectedDiseases : 'ไม่ได้ระบุ'}
+โรคประจำตัว: ${[
+      _patient?.selectedNoDisease,
+      _patient?.selectedDiabetes,
+      _patient?.selectedHypertension,
+      _patient?.selectedDyslipidemia,
+      _patient?.selectedStroke,
+      _patient?.selectedAtrialFibrillation,
+      _patient?.selectedOtherDisease
+    ].where((score) => score?.isNotEmpty ?? false).join(', ').isNotEmpty ? [
+            _patient?.selectedNoDisease,
+            _patient?.selectedDiabetes,
+            _patient?.selectedHypertension,
+            _patient?.selectedDyslipidemia,
+            _patient?.selectedStroke,
+            _patient?.selectedAtrialFibrillation,
+            _patient?.selectedOtherDisease
+          ].where((score) => score?.isNotEmpty ?? false) // ถ้ามีค่าที่ไม่เป็นค่าว่างให้แสดงค่าที่รวมกัน
+            .join(', ') : 'ไม่ได้ระบุ' // ถ้าไม่มีค่าที่ไม่เป็นค่าว่างให้แสดง "ไม่ได้ระบุ"
+        }
 CT Brain: ${_patient?.ctBrainText?.isNotEmpty == true ? _patient!.ctBrainText : 'ไม่ได้ระบุ'}
 
 วันที่เเละเวลาที่บันทึกข้อมูล
@@ -292,6 +310,30 @@ ${_patient?.aftercure ?? 'ไม่ระบุ'}
               onTap: () async {
                 // คัดลอกข้อมูลไปที่คลิปบอร์ด
                 await Clipboard.setData(ClipboardData(text: patientDetails));
+                final snackBar = SnackBar(
+                  content: Text(
+                    'คัดลอกข้อมูลไปที่คลิปบอร์ดเเล้ว',
+                    style: TextStyle(
+                      fontSize: height * 0.018, // ขนาดตัวอักษร
+                      fontWeight: FontWeight.bold, // ตัวหนา
+                      color: Colors.white, // สีตัวอักษร
+                    ),
+                    textAlign: TextAlign.center, // จัดข้อความตรงกลาง
+                  ),
+                  backgroundColor:
+                      Colors.green.withOpacity(0.8), // พื้นหลังสีเขียวใส
+                  duration: Duration(seconds: 1), // ระยะเวลาการแสดงผล
+                  behavior: SnackBarBehavior.floating, // ให้ SnackBar ลอยขึ้นมา
+                  shape: RoundedRectangleBorder(
+                    // ทำมุมโค้งให้ SnackBar
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: width * 0.02,
+                      vertical: height * 0.02), // ขอบห่างจากขอบจอ
+                );
+
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
               child: Image.asset(
                 'images/clipboard.png',
@@ -396,7 +438,37 @@ ${_patient?.aftercure ?? 'ไม่ระบุ'}
                         ),
                         Divider(),
                         Text(
-                          'โรคประจำตัว : ${_patient?.selectedDiseases.isNotEmpty == true ? _patient!.selectedDiseases : 'ไม่ได้ระบุ'}',
+                          'โรคประจำตัว : ' +
+                              ([
+                                _patient?.selectedNoDisease,
+                                _patient?.selectedDiabetes,
+                                _patient?.selectedHypertension,
+                                _patient?.selectedDyslipidemia,
+                                _patient?.selectedStroke,
+                                _patient?.selectedAtrialFibrillation,
+                                _patient?.selectedOtherDisease
+                              ]
+                                      .where((score) =>
+                                          score?.isNotEmpty ??
+                                          false) // เช็คว่าไม่เป็นค่าว่างและไม่เป็น null
+                                      .join(
+                                          ', ') // รวมค่าที่ไม่เป็นค่าว่างด้วย comma
+                                      .isNotEmpty
+                                  ? // ถ้ามีค่าที่ไม่เป็นค่าว่าง
+                                  [
+                                      _patient?.selectedNoDisease,
+                                      _patient?.selectedDiabetes,
+                                      _patient?.selectedHypertension,
+                                      _patient?.selectedDyslipidemia,
+                                      _patient?.selectedStroke,
+                                      _patient?.selectedAtrialFibrillation,
+                                      _patient?.selectedOtherDisease
+                                    ]
+                                      .where((score) =>
+                                          score?.isNotEmpty ??
+                                          false) // ถ้ามีค่าที่ไม่เป็นค่าว่างให้แสดงค่าที่รวมกัน
+                                      .join(', ')
+                                  : 'ไม่ได้ระบุ'), // ถ้าไม่มีค่าที่ไม่เป็นค่าว่างให้แสดง "ไม่ได้ระบุ"
                           style: TextStyle(
                             fontSize: height * 0.02,
                           ),
@@ -1032,6 +1104,35 @@ ${_patient?.aftercure ?? 'ไม่ระบุ'}
           ],
         ),
       ),
+//       floatingActionButton: Row(
+//         mainAxisAlignment: MainAxisAlignment.end,
+//         children: [
+//           FloatingActionButton(
+//             backgroundColor: const Color(0xFF82B1FF),
+//             child: const Icon(Icons.send),
+//             onPressed: () async {
+// // สร้างไฟล์ใน directory ของแอป
+//               final directory = await getApplicationDocumentsDirectory();
+
+// // ตั้งชื่อไฟล์ให้ชัดเจน
+//               final fileName =
+//                   'Patient_Info_${_patient?.nameController ?? 'Unknown'}.txt';
+//               final path = '${directory.path}/$fileName';
+//               final file = File(path);
+
+// // เขียนข้อความลงในไฟล์
+//               await file.writeAsString(patientDetails);
+
+// // แชร์ไฟล์ที่มีชื่อที่ตั้งไว้โดยใช้ shareXFiles
+//               await Share.shareXFiles(
+//                 [XFile(file.path)],
+//                 text: 'ดูข้อมูลผู้ป่วยที่นี่',
+//                 subject: 'ข้อมูลผู้ป่วย',
+//               );
+//             },
+//           ),
+//         ],
+//       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -1039,23 +1140,77 @@ ${_patient?.aftercure ?? 'ไม่ระบุ'}
             backgroundColor: const Color(0xFF82B1FF),
             child: const Icon(Icons.send),
             onPressed: () async {
-// สร้างไฟล์ใน directory ของแอป
-              final directory = await getApplicationDocumentsDirectory();
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    title: const Text(
+                      'แชร์ข้อมูลผู้ป่วย',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // ปุ่มแชร์เป็นไฟล์
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          icon: const Icon(Icons.insert_drive_file),
+                          label: const Text('แชร์เป็นไฟล์'),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                            final directory =
+                                await getApplicationDocumentsDirectory();
 
-// ตั้งชื่อไฟล์ให้ชัดเจน
-              final fileName =
-                  'Patient_Info_${_patient?.nameController ?? 'Unknown'}.txt';
-              final path = '${directory.path}/$fileName';
-              final file = File(path);
+                            // ตั้งชื่อไฟล์ให้ชัดเจน
+                            final fileName =
+                                'Patient_Info_${_patient?.nameController ?? 'Unknown'}.txt';
+                            final path = '${directory.path}/$fileName';
+                            final file = File(path);
 
-// เขียนข้อความลงในไฟล์
-              await file.writeAsString(patientDetails);
+                            // เขียนข้อความลงในไฟล์
+                            await file.writeAsString(patientDetails);
 
-// แชร์ไฟล์ที่มีชื่อที่ตั้งไว้โดยใช้ shareXFiles
-              await Share.shareXFiles(
-                [XFile(file.path)],
-                text: 'ดูข้อมูลผู้ป่วยที่นี่',
-                subject: 'ข้อมูลผู้ป่วย',
+                            // แชร์ไฟล์ที่มีชื่อที่ตั้งไว้โดยใช้ shareXFiles
+                            await Share.shareXFiles(
+                              [XFile(file.path)],
+                              text: 'ดูข้อมูลผู้ป่วยที่นี่',
+                              subject: 'ข้อมูลผู้ป่วย',
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 12), // ระยะห่างระหว่างปุ่ม
+                        // ปุ่มแชร์เป็นข้อความ
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          icon: const Icon(Icons.text_fields),
+                          label: const Text('แชร์เป็นข้อความ'),
+                          onPressed: () async {
+                            Navigator.pop(context);
+                            await Share.share(patientDetails); // ส่งเป็นข้อความ
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
               );
             },
           ),
@@ -1063,32 +1218,32 @@ ${_patient?.aftercure ?? 'ไม่ระบุ'}
       ),
     );
   }
-}
 
-Widget buildRow(double height, double width, String text, String value) {
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: height * 0.01),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          child: Text(
-            text,
+  Widget buildRow(double height, double width, String text, String value) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: height * 0.01),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: height * 0.018,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          SizedBox(width: width * 0.05),
+          Text(
+            value,
             style: TextStyle(
               fontSize: height * 0.018,
             ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
           ),
-        ),
-        SizedBox(width: width * 0.05),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: height * 0.018,
-          ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }

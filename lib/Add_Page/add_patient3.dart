@@ -42,10 +42,39 @@ class AddPatient3 extends StatefulWidget {
 
 class _AddPatient3State extends State<AddPatient3> {
   String selectedDiseases = '';
-  int onDiseasesScore = -1;
+  int scoreDiseasesScore = -1;
+  String selectedNoDisease = '';
+  int scoreNoDisease = -1;
+  String selectedDiabetes = '';
+  int scoreDiabetes = -1;
+  String selectedHypertension = '';
+  int scoreHypertension = -1;
+  String selectedDyslipidemia = '';
+  int scoreDyslipidemia = -1;
+  String selectedStroke = '';
+  int scoreStroke = -1;
+  String selectedAtrialFibrillation = '';
+  int scoreAtrialFibrillation = -1;
+  String selectedOtherDisease = '';
+  int socreOtherDiseas = -1;
 
   late String initialctselectedDiseases;
   late int initialonDiseasesScore;
+  late int initialonDiseasesScore1;
+  late int initialonDiseasesScore2;
+  late int initialonDiseasesScore3;
+  late int initialonDiseasesScore4;
+  late int initialonDiseasesScore5;
+  late int initialonDiseasesScore6;
+  late int initialonDiseasesScore7;
+  late String initialctselectedDiseases1;
+  late String initialctselectedDiseases2;
+  late String initialctselectedDiseases3;
+  late String initialctselectedDiseases4;
+  late String initialctselectedDiseases5;
+  late String initialctselectedDiseases6;
+  late String initialctselectedDiseases7;
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +83,20 @@ class _AddPatient3State extends State<AddPatient3> {
     // กำหนดค่าครั้งแรกจาก paddPatient2
     initialctselectedDiseases = paddPatient3.selectedDiseases;
     initialonDiseasesScore = paddPatient3.onDiseasesScore;
+    initialonDiseasesScore1 = paddPatient3.scoreNoDisease;
+    initialonDiseasesScore2 = paddPatient3.scoreDiabetes;
+    initialonDiseasesScore3 = paddPatient3.scoreHypertension;
+    initialonDiseasesScore4 = paddPatient3.scoreDyslipidemia;
+    initialonDiseasesScore5 = paddPatient3.scoreStroke;
+    initialonDiseasesScore6 = paddPatient3.scoreAtrialFibrillation;
+    initialonDiseasesScore7 = paddPatient3.socreOtherDiseas;
+    initialctselectedDiseases1 = paddPatient3.selectedNoDisease;
+    initialctselectedDiseases2 = paddPatient3.selectedDiabetes;
+    initialctselectedDiseases3 = paddPatient3.selectedHypertension;
+    initialctselectedDiseases4 = paddPatient3.selectedDyslipidemia;
+    initialctselectedDiseases5 = paddPatient3.selectedStroke;
+    initialctselectedDiseases6 = paddPatient3.selectedAtrialFibrillation;
+    initialctselectedDiseases7 = paddPatient3.selectedOtherDisease;
   }
 
   @override
@@ -116,15 +159,73 @@ class _AddPatient3State extends State<AddPatient3> {
                         ),
                         SizedBox(height: height * 0.02),
                         DiseaseSelection(
-                          onDiseasesSelected: (selectedDiseases) {
+                          initialValue1: initialonDiseasesScore1,
+                          initialValue2: initialonDiseasesScore2,
+                          initialValue3: initialonDiseasesScore3,
+                          initialValue4: initialonDiseasesScore4,
+                          initialValue5: initialonDiseasesScore5,
+                          initialValue6: initialonDiseasesScore6,
+                          initialValue7: initialonDiseasesScore7,
+                          initialString1: initialctselectedDiseases1,
+                          initialString2: initialctselectedDiseases2,
+                          initialString3: initialctselectedDiseases3,
+                          initialString4: initialctselectedDiseases4,
+                          initialString5: initialctselectedDiseases5,
+                          initialString6: initialctselectedDiseases6,
+                          initialString7: initialctselectedDiseases7,
+                          onselectedNoDisease: (selectedNoDisease) {
                             paddPatient3
-                                .updateSelectedDiseases(selectedDiseases);
+                                .updateSelectedNoDisease(selectedNoDisease);
                           },
-                          initialValue1: initialctselectedDiseases,
-                          onDiseasesScore: (score) {
-                            paddPatient3.updateOnDiseasesScore(score);
+                          onscoreNoDisease: (scoreNoDisease) {
+                            paddPatient3.updateScoreNoDisease(scoreNoDisease);
                           },
-                          initialValue2: initialonDiseasesScore,
+                          onselectedDiabetes: (selectedDiabetes) {
+                            paddPatient3
+                                .updateSelectedDiabetes(selectedDiabetes);
+                          },
+                          onscoreDiabetes: (scoreDiabetes) {
+                            paddPatient3.updateScoreDiabetes(scoreDiabetes);
+                          },
+                          onselectedHypertension: (selectedHypertension) {
+                            paddPatient3.updateSelectedHypertension(
+                                selectedHypertension);
+                          },
+                          onscoreHypertension: (scoreHypertension) {
+                            paddPatient3
+                                .updateScoreHypertension(scoreHypertension);
+                          },
+                          onselectedDyslipidemia: (selectedDyslipidemia) {
+                            paddPatient3.updateSelectedDyslipidemias(
+                                selectedDyslipidemia);
+                          },
+                          onscoreDyslipidemia: (scoreDyslipidemia) {
+                            paddPatient3
+                                .updateScoreDyslipidemia(scoreDyslipidemia);
+                          },
+                          onselectedStroke: (selectedStroke) {
+                            paddPatient3.updateSelectedStroke(selectedStroke);
+                          },
+                          onscoreStroke: (scoreStroke) {
+                            paddPatient3.updateScoreStroke(scoreStroke);
+                          },
+                          onselectedAtrialFibrillation:
+                              (selectedAtrialFibrillation) {
+                            paddPatient3.updateSelectedAtrialFibrillation(
+                                selectedAtrialFibrillation);
+                          },
+                          onscoreAtrialFibrillation: (scoreAtrialFibrillation) {
+                            paddPatient3.updateScoreAtrialFibrillation(
+                                scoreAtrialFibrillation);
+                          },
+                          onselectedOtherDisease: (selectedOtherDisease) {
+                            paddPatient3.updateSelectedOtherDisease(
+                                selectedOtherDisease);
+                          },
+                          onsocreOtherDiseas: (socreOtherDiseas) {
+                            paddPatient3
+                                .updateSocreOtherDiseas(socreOtherDiseas);
+                          },
                         ),
                         SizedBox(height: height * 0.02),
                       ],

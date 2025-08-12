@@ -245,6 +245,20 @@ class _AddPatient10State extends State<AddPatient10> {
       recordedTime1: recordedTime1,
       recordedTime2: recordedTime2,
       rtpa: rtpa,
+      scoreNoDisease: paddPatient3.scoreNoDisease,
+      scoreDiabetes: paddPatient3.scoreDiabetes,
+      scoreHypertension: paddPatient3.scoreHypertension,
+      scoreDyslipidemia: paddPatient3.scoreDyslipidemia,
+      scoreStroke: paddPatient3.scoreStroke,
+      scoreAtrialFibrillation: paddPatient3.scoreAtrialFibrillation,
+      socreOtherDiseas: paddPatient3.socreOtherDiseas,
+      selectedNoDisease: paddPatient3.selectedNoDisease,
+      selectedDiabetes: paddPatient3.selectedDiabetes,
+      selectedHypertension: paddPatient3.selectedHypertension,
+      selectedDyslipidemia: paddPatient3.selectedDyslipidemia,
+      selectedStroke: paddPatient3.selectedStroke,
+      selectedAtrialFibrillation: paddPatient3.selectedAtrialFibrillation,
+      selectedOtherDisease: paddPatient3.selectedOtherDisease,
     );
 
     // แปลงเป็น JSON และเพิ่มในลิสต์
@@ -526,7 +540,16 @@ class _AddPatient10State extends State<AddPatient10> {
                 ),
                 SizedBox(height: spacing * 1.5),
                 Text(
-                  'โรคประจำตัว: ${paddPatient3.selectedDiseases.isNotEmpty ? paddPatient3.selectedDiseases : 'ไม่ระบุ'}',
+                  'โรคประจำตัว: ' +
+                      [
+                        paddPatient3.selectedNoDisease,
+                        paddPatient3.selectedDiabetes,
+                        paddPatient3.selectedHypertension,
+                        paddPatient3.selectedDyslipidemia,
+                        paddPatient3.selectedStroke,
+                        paddPatient3.selectedAtrialFibrillation,
+                        paddPatient3.selectedOtherDisease
+                      ].where((score) => score.isNotEmpty).join(', '),
                   style: TextStyle(fontSize: fontSizeContent),
                 ),
                 SizedBox(height: spacing * 1.5),

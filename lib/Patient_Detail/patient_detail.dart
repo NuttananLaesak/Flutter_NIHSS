@@ -224,7 +224,37 @@ class _PatientDetailState extends State<PatientDetail> {
                           ),
                           Divider(),
                           Text(
-                            'โรคประจำตัว : ${_patient?.selectedDiseases.isNotEmpty == true ? _patient!.selectedDiseases : 'ไม่ได้ระบุ'}',
+                            'โรคประจำตัว : ' +
+                                ([
+                                  _patient?.selectedNoDisease,
+                                  _patient?.selectedDiabetes,
+                                  _patient?.selectedHypertension,
+                                  _patient?.selectedDyslipidemia,
+                                  _patient?.selectedStroke,
+                                  _patient?.selectedAtrialFibrillation,
+                                  _patient?.selectedOtherDisease
+                                ]
+                                        .where((score) =>
+                                            score?.isNotEmpty ??
+                                            false) // เช็คว่าไม่เป็นค่าว่างและไม่เป็น null
+                                        .join(
+                                            ', ') // รวมค่าที่ไม่เป็นค่าว่างด้วย comma
+                                        .isNotEmpty
+                                    ? // ถ้ามีค่าที่ไม่เป็นค่าว่าง
+                                    [
+                                        _patient?.selectedNoDisease,
+                                        _patient?.selectedDiabetes,
+                                        _patient?.selectedHypertension,
+                                        _patient?.selectedDyslipidemia,
+                                        _patient?.selectedStroke,
+                                        _patient?.selectedAtrialFibrillation,
+                                        _patient?.selectedOtherDisease
+                                      ]
+                                        .where((score) =>
+                                            score?.isNotEmpty ??
+                                            false) // ถ้ามีค่าที่ไม่เป็นค่าว่างให้แสดงค่าที่รวมกัน
+                                        .join(', ')
+                                    : 'ไม่ได้ระบุ'), // ถ้าไม่มีค่าที่ไม่เป็นค่าว่างให้แสดง "ไม่ได้ระบุ"
                             style: TextStyle(
                               fontSize: height * 0.02,
                             ),

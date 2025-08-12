@@ -171,6 +171,20 @@ class _EditNihss11State extends State<EditNihss11> {
       recordedTime1: _patient?.recordedTime1,
       recordedTime2: _patient?.recordedTime2,
       rtpa: _patient?.rtpa ?? '',
+      scoreNoDisease: _patient?.scoreNoDisease ?? 0,
+      scoreDiabetes: _patient?.scoreDiabetes ?? 0,
+      scoreHypertension: _patient?.scoreHypertension ?? 0,
+      scoreDyslipidemia: _patient?.scoreDyslipidemia ?? 0,
+      scoreStroke: _patient?.scoreStroke ?? 0,
+      scoreAtrialFibrillation: _patient?.scoreAtrialFibrillation ?? 0,
+      socreOtherDiseas: _patient?.socreOtherDiseas ?? 0,
+      selectedNoDisease: _patient?.selectedNoDisease ?? '',
+      selectedDiabetes: _patient?.selectedDiabetes ?? '',
+      selectedHypertension: _patient?.selectedHypertension ?? '',
+      selectedDyslipidemia: _patient?.selectedDyslipidemia ?? '',
+      selectedStroke: _patient?.selectedStroke ?? '',
+      selectedAtrialFibrillation: _patient?.selectedAtrialFibrillation ?? '',
+      selectedOtherDisease: _patient?.selectedOtherDisease ?? '',
     );
 
     // อัปเดตใน SharedPreferences

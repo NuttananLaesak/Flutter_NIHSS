@@ -1,73 +1,128 @@
 import 'package:flutter/material.dart';
 
 class DiseaseSelection extends StatefulWidget {
-  final Function(String) onDiseasesSelected;
-  final Function(int) onDiseasesScore;
-  final String initialValue1;
-  final int initialValue2;
+  final Function(String) onselectedNoDisease;
+  final Function(int) onscoreNoDisease;
+  final Function(String) onselectedDiabetes;
+  final Function(int) onscoreDiabetes;
+  final Function(String) onselectedHypertension;
+  final Function(int) onscoreHypertension;
+  final Function(String) onselectedDyslipidemia;
+  final Function(int) onscoreDyslipidemia;
+  final Function(String) onselectedStroke;
+  final Function(int) onscoreStroke;
+  final Function(String) onselectedAtrialFibrillation;
+  final Function(int) onscoreAtrialFibrillation;
+  final Function(String) onselectedOtherDisease;
+  final Function(int) onsocreOtherDiseas;
 
-  const DiseaseSelection(
-      {Key? key,
-      required this.onDiseasesSelected,
-      required this.onDiseasesScore,
-      required this.initialValue1,
-      required this.initialValue2})
-      : super(key: key);
+  final int initialValue1;
+  final int initialValue2;
+  final int initialValue3;
+  final int initialValue4;
+  final int initialValue5;
+  final int initialValue6;
+  final int initialValue7;
+  final String initialString1;
+  final String initialString2;
+  final String initialString3;
+  final String initialString4;
+  final String initialString5;
+  final String initialString6;
+  final String initialString7;
+
+  const DiseaseSelection({
+    Key? key,
+    required this.onselectedNoDisease,
+    required this.onscoreNoDisease,
+    required this.onselectedDiabetes,
+    required this.onscoreDiabetes,
+    required this.onselectedHypertension,
+    required this.onscoreHypertension,
+    required this.onselectedDyslipidemia,
+    required this.onscoreDyslipidemia,
+    required this.onselectedStroke,
+    required this.onscoreStroke,
+    required this.onselectedAtrialFibrillation,
+    required this.onscoreAtrialFibrillation,
+    required this.onselectedOtherDisease,
+    required this.onsocreOtherDiseas,
+    required this.initialValue1,
+    required this.initialValue2,
+    required this.initialValue3,
+    required this.initialValue4,
+    required this.initialValue5,
+    required this.initialValue6,
+    required this.initialValue7,
+    required this.initialString1,
+    required this.initialString2,
+    required this.initialString3,
+    required this.initialString4,
+    required this.initialString5,
+    required this.initialString6,
+    required this.initialString7,
+  }) : super(key: key);
 
   @override
   _DiseaseSelectionState createState() => _DiseaseSelectionState();
 }
 
 class _DiseaseSelectionState extends State<DiseaseSelection> {
-  String selectedDisease = ''; // ตัวแปรที่ใช้เก็บโรคที่เลือก
-  int scoreDiseases = -1; // คะแนนที่ใช้ในการคำนวณ
   TextEditingController otherDiseaseController = TextEditingController();
+
+  // สร้างตัวแปรเก็บสถานะของโรคที่เลือก
+  String selectedNoDisease = '';
+  int scoreNoDisease = -1;
+
+  String selectedDiabetes = '';
+  int scoreDiabetes = -1;
+
+  String selectedHypertension = '';
+  int scoreHypertension = -1;
+
+  String selectedDyslipidemia = '';
+  int scoreDyslipidemia = -1;
+
+  String selectedStroke = '';
+  int scoreStroke = -1;
+
+  String selectedAtrialFibrillation = '';
+  int scoreAtrialFibrillation = -1;
+
+  String selectedOtherDisease = '';
+  int scoreOtherDisease = -1;
 
   @override
   void initState() {
     super.initState();
-    selectedDisease = widget.initialValue1; // กำหนดค่าเริ่มต้น
-    scoreDiseases = widget.initialValue2; // กำหนดค่าเริ่มต้น
-    _setSelectedDisease();
-    if (selectedDisease == 'อื่นๆ') {
-      otherDiseaseController.text = widget.initialValue1; // Show initial value
-    }
-  }
+    // กำหนดค่าเริ่มต้นจาก widget ที่ถูกส่งเข้ามา
+    selectedNoDisease = widget.initialString1;
+    scoreNoDisease = widget.initialValue1;
 
-  void _setSelectedDisease() {
-    // กำหนดค่า selectedDisease ตาม scoreDiseases
-    switch (scoreDiseases) {
-      case 0:
-        selectedDisease = 'ไม่มีโรคประจำตัว';
-        break;
-      case 1:
-        selectedDisease = 'โรคเบาหวาน';
-        break;
-      case 2:
-        selectedDisease = 'โรคความดันโลหิตสูง';
-        break;
-      case 3:
-        selectedDisease = 'โรคไขมันในเลือดสูง';
-        break;
-      case 4:
-        selectedDisease = 'โรคหลอดเลือดสมอง';
-        break;
-      case 5:
-        selectedDisease = 'โรคหัวใจเต้นพลิ้ว';
-        break;
-      case 6:
-        selectedDisease = 'อื่นๆ';
-        break;
-      default:
-        selectedDisease = ''; // ไม่มีโรค
-    }
-    otherDiseaseController.text =
-        (scoreDiseases == 6) ? '' : ''; // ล้างค่าในฟิลด์อื่นๆ
+    selectedDiabetes = widget.initialString2;
+    scoreDiabetes = widget.initialValue2;
+
+    selectedHypertension = widget.initialString3;
+    scoreHypertension = widget.initialValue3;
+
+    selectedDyslipidemia = widget.initialString4;
+    scoreDyslipidemia = widget.initialValue4;
+
+    selectedStroke = widget.initialString5;
+    scoreStroke = widget.initialValue5;
+
+    selectedAtrialFibrillation = widget.initialString6;
+    scoreAtrialFibrillation = widget.initialValue6;
+
+    selectedOtherDisease = widget.initialString7;
+    scoreOtherDisease = widget.initialValue7;
+    otherDiseaseController = TextEditingController(text: widget.initialString7);
   }
 
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -77,18 +132,13 @@ class _DiseaseSelectionState extends State<DiseaseSelection> {
               'ไม่มีโรคประจำตัว\n(No Underlying Disease)',
               style: TextStyle(fontSize: height * 0.018),
             ),
-            value: selectedDisease == 'ไม่มีโรคประจำตัว',
+            value: selectedNoDisease.isNotEmpty,
             activeColor: Color(0xFF304FFE),
             onChanged: (value) {
               setState(() {
-                if (selectedDisease == 'ไม่มีโรคประจำตัว') {
-                  selectedDisease = ''; // ยกเลิกการเลือก
-                  scoreDiseases = -1; // คะแนนเป็น 0
-                } else {
-                  selectedDisease = 'ไม่มีโรคประจำตัว';
-                  scoreDiseases = 0; // คะแนนสำหรับไม่มีโรค
-                  otherDiseaseController.clear(); // ล้างค่าในฟิลด์อื่นๆ
-                }
+                selectedNoDisease = value! ? 'ไม่มีโรคประจำตัว' : '';
+                scoreNoDisease = value ? 1 : -1;
+                // otherDiseaseController.clear(); // ล้างค่าในฟิลด์อื่นๆ
               });
               updateSelectedDiseases();
             },
@@ -101,18 +151,13 @@ class _DiseaseSelectionState extends State<DiseaseSelection> {
               'โรคเบาหวาน\n(Diabetes Mellitus)',
               style: TextStyle(fontSize: height * 0.018),
             ),
-            value: selectedDisease == 'โรคเบาหวาน',
+            value: selectedDiabetes.isNotEmpty,
             activeColor: Color(0xFF304FFE),
             onChanged: (value) {
               setState(() {
-                if (selectedDisease == 'โรคเบาหวาน') {
-                  selectedDisease = ''; // ยกเลิกการเลือก
-                  scoreDiseases = -1; // คะแนนเป็น 0
-                } else {
-                  selectedDisease = 'โรคเบาหวาน';
-                  scoreDiseases = 1; // คะแนนสำหรับโรคเบาหวาน
-                  otherDiseaseController.clear(); // ล้างค่าในฟิลด์อื่นๆ
-                }
+                selectedDiabetes = value! ? 'โรคเบาหวาน' : '';
+                scoreDiabetes = value ? 1 : -1;
+                // otherDiseaseController.clear();
               });
               updateSelectedDiseases();
             },
@@ -125,18 +170,13 @@ class _DiseaseSelectionState extends State<DiseaseSelection> {
               'โรคความดันโลหิตสูง\n(Hypertension)',
               style: TextStyle(fontSize: height * 0.018),
             ),
-            value: selectedDisease == 'โรคความดันโลหิตสูง',
+            value: selectedHypertension.isNotEmpty,
             activeColor: Color(0xFF304FFE),
             onChanged: (value) {
               setState(() {
-                if (selectedDisease == 'โรคความดันโลหิตสูง') {
-                  selectedDisease = ''; // ยกเลิกการเลือก
-                  scoreDiseases = -1; // คะแนนเป็น 0
-                } else {
-                  selectedDisease = 'โรคความดันโลหิตสูง';
-                  scoreDiseases = 2; // คะแนนสำหรับความดันโลหิตสูง
-                  otherDiseaseController.clear(); // ล้างค่าในฟิลด์อื่นๆ
-                }
+                selectedHypertension = value! ? 'โรคความดันโลหิตสูง' : '';
+                scoreHypertension = value ? 1 : -1;
+                // otherDiseaseController.clear();
               });
               updateSelectedDiseases();
             },
@@ -149,18 +189,13 @@ class _DiseaseSelectionState extends State<DiseaseSelection> {
               'โรคไขมันในเลือดสูง\n(Dyslipidemia)',
               style: TextStyle(fontSize: height * 0.018),
             ),
-            value: selectedDisease == 'โรคไขมันในเลือดสูง',
+            value: selectedDyslipidemia.isNotEmpty,
             activeColor: Color(0xFF304FFE),
             onChanged: (value) {
               setState(() {
-                if (selectedDisease == 'โรคไขมันในเลือดสูง') {
-                  selectedDisease = ''; // ยกเลิกการเลือก
-                  scoreDiseases = -1; // คะแนนเป็น 0
-                } else {
-                  selectedDisease = 'โรคไขมันในเลือดสูง';
-                  scoreDiseases = 3; // คะแนนสำหรับไขมันในเลือดสูง
-                  otherDiseaseController.clear(); // ล้างค่าในฟิลด์อื่นๆ
-                }
+                selectedDyslipidemia = value! ? 'โรคไขมันในเลือดสูง' : '';
+                scoreDyslipidemia = value ? 1 : -1;
+                // otherDiseaseController.clear();
               });
               updateSelectedDiseases();
             },
@@ -173,18 +208,13 @@ class _DiseaseSelectionState extends State<DiseaseSelection> {
               'โรคหลอดเลือดสมอง\n(Stroke)',
               style: TextStyle(fontSize: height * 0.018),
             ),
-            value: selectedDisease == 'โรคหลอดเลือดสมอง',
+            value: selectedStroke.isNotEmpty,
             activeColor: Color(0xFF304FFE),
             onChanged: (value) {
               setState(() {
-                if (selectedDisease == 'โรคหลอดเลือดสมอง') {
-                  selectedDisease = ''; // ยกเลิกการเลือก
-                  scoreDiseases = -1; // คะแนนเป็น 0
-                } else {
-                  selectedDisease = 'โรคหลอดเลือดสมอง';
-                  scoreDiseases = 4; // คะแนนสำหรับโรคหลอดเลือดสมอง
-                  otherDiseaseController.clear(); // ล้างค่าในฟิลด์อื่นๆ
-                }
+                selectedStroke = value! ? 'โรคหลอดเลือดสมอง' : '';
+                scoreStroke = value ? 1 : -1;
+                // otherDiseaseController.clear();
               });
               updateSelectedDiseases();
             },
@@ -197,18 +227,13 @@ class _DiseaseSelectionState extends State<DiseaseSelection> {
               'โรคหัวใจเต้นพลิ้ว\n(Atrial Fibrillation/Atrial Flutter)',
               style: TextStyle(fontSize: height * 0.017),
             ),
-            value: selectedDisease == 'โรคหัวใจเต้นพลิ้ว',
+            value: selectedAtrialFibrillation.isNotEmpty,
             activeColor: Color(0xFF304FFE),
             onChanged: (value) {
               setState(() {
-                if (selectedDisease == 'โรคหัวใจเต้นพลิ้ว') {
-                  selectedDisease = ''; // ยกเลิกการเลือก
-                  scoreDiseases = -1; // คะแนนเป็น 0
-                } else {
-                  selectedDisease = 'โรคหัวใจเต้นพลิ้ว';
-                  scoreDiseases = 5; // คะแนนสำหรับโรคหัวใจเต้นพลิ้ว
-                  otherDiseaseController.clear(); // ล้างค่าในฟิลด์อื่นๆ
-                }
+                selectedAtrialFibrillation = value! ? 'โรคหัวใจเต้นพลิ้ว' : '';
+                scoreAtrialFibrillation = value ? 1 : -1;
+                // otherDiseaseController.clear();
               });
               updateSelectedDiseases();
             },
@@ -221,23 +246,27 @@ class _DiseaseSelectionState extends State<DiseaseSelection> {
               'อื่นๆ',
               style: TextStyle(fontSize: height * 0.018),
             ),
-            value: selectedDisease == 'อื่นๆ',
+            value: selectedOtherDisease.isNotEmpty,
             activeColor: Color(0xFF304FFE),
             onChanged: (value) {
               setState(() {
-                if (selectedDisease == 'อื่นๆ') {
-                  selectedDisease = ''; // ยกเลิกการเลือก
-                  scoreDiseases = -1; // คะแนนเป็น 0
+                if (!value!) {
+                  selectedOtherDisease = '';
+                  scoreOtherDisease = -1;
+                  otherDiseaseController.clear();
                 } else {
-                  selectedDisease = 'อื่นๆ';
-                  scoreDiseases = 6; // คะแนนสำหรับโรคอื่นๆ
+                  selectedOtherDisease = otherDiseaseController.text.isNotEmpty
+                      ? otherDiseaseController.text
+                      : 'อื่นๆ';
+                  scoreOtherDisease = 1;
                 }
               });
               updateSelectedDiseases();
             },
           ),
         ),
-        if (selectedDisease == 'อื่นๆ')
+        if (selectedOtherDisease.isNotEmpty ||
+            otherDiseaseController.text.isNotEmpty)
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -257,6 +286,9 @@ class _DiseaseSelectionState extends State<DiseaseSelection> {
                 labelStyle: TextStyle(color: Colors.grey),
               ),
               onChanged: (String text) {
+                setState(() {
+                  selectedOtherDisease = text;
+                });
                 updateSelectedDiseases();
               },
             ),
@@ -267,12 +299,19 @@ class _DiseaseSelectionState extends State<DiseaseSelection> {
   }
 
   void updateSelectedDiseases() {
-    // เช็คว่าถ้า selectedDisease เป็น "อื่นๆ" ให้ใช้ค่าจาก otherDiseaseController แทน
-    String finalDisease = selectedDisease == 'อื่นๆ'
-        ? otherDiseaseController.text
-        : selectedDisease;
-
-    widget.onDiseasesSelected(finalDisease);
-    widget.onDiseasesScore(scoreDiseases);
+    widget.onselectedNoDisease(selectedNoDisease);
+    widget.onscoreNoDisease(scoreNoDisease);
+    widget.onselectedDiabetes(selectedDiabetes);
+    widget.onscoreDiabetes(scoreDiabetes);
+    widget.onselectedHypertension(selectedHypertension);
+    widget.onscoreHypertension(scoreHypertension);
+    widget.onselectedDyslipidemia(selectedDyslipidemia);
+    widget.onscoreDyslipidemia(scoreDyslipidemia);
+    widget.onselectedStroke(selectedStroke);
+    widget.onscoreStroke(scoreStroke);
+    widget.onselectedAtrialFibrillation(selectedAtrialFibrillation);
+    widget.onscoreAtrialFibrillation(scoreAtrialFibrillation);
+    widget.onselectedOtherDisease(selectedOtherDisease);
+    widget.onsocreOtherDiseas(scoreOtherDisease);
   }
 }

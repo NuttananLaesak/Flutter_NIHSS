@@ -66,6 +66,23 @@ class _EditPatient3State extends State<EditPatient3> {
   int? ctBrainScore;
   String? ctBrainText;
 
+  String selectedDiseases = '';
+  int scoreDiseasesScore = -1;
+  String selectedNoDisease = '';
+  int scoreNoDisease = -1;
+  String selectedDiabetes = '';
+  int scoreDiabetes = -1;
+  String selectedHypertension = '';
+  int scoreHypertension = -1;
+  String selectedDyslipidemia = '';
+  int scoreDyslipidemia = -1;
+  String selectedStroke = '';
+  int scoreStroke = -1;
+  String selectedAtrialFibrillation = '';
+  int scoreAtrialFibrillation = -1;
+  String selectedOtherDisease = '';
+  int socreOtherDiseas = -1;
+
   Patient? _patient;
 
   @override
@@ -88,6 +105,20 @@ class _EditPatient3State extends State<EditPatient3> {
           _onDiseasesScore = patient.scoreDiseases;
           ctBrainScore = patient.ctBrain;
           ctBrainText = patient.ctBrainText;
+          scoreDiseasesScore = patient.scoreNoDisease;
+          scoreDiabetes = patient.scoreDiabetes;
+          scoreHypertension = patient.scoreHypertension;
+          scoreDyslipidemia = patient.scoreDyslipidemia;
+          scoreStroke = patient.scoreStroke;
+          scoreAtrialFibrillation = patient.scoreAtrialFibrillation;
+          socreOtherDiseas = patient.socreOtherDiseas;
+          selectedNoDisease = patient.selectedNoDisease;
+          selectedDiabetes = patient.selectedDiabetes;
+          selectedHypertension = patient.selectedHypertension;
+          selectedDyslipidemia = patient.selectedDyslipidemia;
+          selectedStroke = patient.selectedStroke;
+          selectedAtrialFibrillation = patient.selectedAtrialFibrillation;
+          selectedOtherDisease = patient.selectedOtherDisease;
         });
         break;
       }
@@ -195,6 +226,20 @@ class _EditPatient3State extends State<EditPatient3> {
       recordedTime1: _patient?.recordedTime1,
       recordedTime2: _patient?.recordedTime2,
       rtpa: _patient?.rtpa ?? '',
+      scoreNoDisease: scoreNoDisease,
+      scoreDiabetes: scoreDiabetes,
+      scoreHypertension: scoreHypertension,
+      scoreDyslipidemia: scoreDyslipidemia,
+      scoreStroke: scoreStroke,
+      scoreAtrialFibrillation: scoreAtrialFibrillation,
+      socreOtherDiseas: socreOtherDiseas,
+      selectedNoDisease: selectedNoDisease,
+      selectedDiabetes: selectedDiabetes,
+      selectedHypertension: selectedHypertension,
+      selectedDyslipidemia: selectedDyslipidemia,
+      selectedStroke: selectedStroke,
+      selectedAtrialFibrillation: selectedAtrialFibrillation,
+      selectedOtherDisease: selectedOtherDisease,
     );
 
     // อัปเดตใน SharedPreferences
@@ -264,11 +309,79 @@ class _EditPatient3State extends State<EditPatient3> {
                         SizedBox(height: height * 0.02),
                         EditDiseaseSelection(
                           patientId: widget.patientId,
-                          onDiseasesSelected: (selectedDiseases) {
-                            this._selectedDiseases = selectedDiseases;
+                          onselectedNoDisease: (newSelectedNoDisease) {
+                            setState(() {
+                              selectedNoDisease = newSelectedNoDisease;
+                            });
                           },
-                          onDiseasesScore: (score) {
-                            this._onDiseasesScore = score;
+                          onscoreNoDisease: (newScoreNoDisease) {
+                            setState(() {
+                              scoreNoDisease = newScoreNoDisease;
+                            });
+                          },
+                          onselectedDiabetes: (newSelectedDiabetes) {
+                            setState(() {
+                              selectedDiabetes = newSelectedDiabetes;
+                            });
+                          },
+                          onscoreDiabetes: (newScoreDiabetes) {
+                            setState(() {
+                              scoreDiabetes = newScoreDiabetes;
+                            });
+                          },
+                          onselectedHypertension: (newSelectedHypertension) {
+                            setState(() {
+                              selectedHypertension = newSelectedHypertension;
+                            });
+                          },
+                          onscoreHypertension: (newScoreHypertension) {
+                            setState(() {
+                              scoreHypertension = newScoreHypertension;
+                            });
+                          },
+                          onselectedDyslipidemia: (newSelectedDyslipidemia) {
+                            setState(() {
+                              selectedDyslipidemia = newSelectedDyslipidemia;
+                            });
+                          },
+                          onscoreDyslipidemia: (newScoreDyslipidemia) {
+                            setState(() {
+                              scoreDyslipidemia = newScoreDyslipidemia;
+                            });
+                          },
+                          onselectedStroke: (newSelectedStroke) {
+                            setState(() {
+                              selectedStroke = newSelectedStroke;
+                            });
+                          },
+                          onscoreStroke: (newScoreStroke) {
+                            setState(() {
+                              scoreStroke = newScoreStroke;
+                            });
+                          },
+                          onselectedAtrialFibrillation:
+                              (newSelectedAtrialFibrillation) {
+                            setState(() {
+                              selectedAtrialFibrillation =
+                                  newSelectedAtrialFibrillation;
+                            });
+                          },
+                          onscoreAtrialFibrillation:
+                              (newScoreAtrialFibrillation) {
+                            setState(() {
+                              scoreAtrialFibrillation =
+                                  newScoreAtrialFibrillation;
+                            });
+                          },
+                          onselectedOtherDisease: (newSelectedOtherDisease) {
+                            setState(() {
+                              selectedOtherDisease = newSelectedOtherDisease;
+                            });
+                          },
+                          onsocreOtherDiseas: (newScoreOtherDisease) {
+                            setState(() {
+                              socreOtherDiseas = newScoreOtherDisease;
+                            });
                           },
                         ),
                         SizedBox(height: height * 0.02),
